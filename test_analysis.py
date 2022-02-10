@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import json
@@ -137,8 +138,11 @@ for i in range(N):
         break
 
 print(review_data[i]["place"])
-print(review_data[i]["url"])
 
 with open("test_result.txt", "w") as f:
     for s in ss:
         f.write("{} : {:.2e}\n".format(list(fdb_meat.keys())[s], mc[i][s]))
+
+plt.title("reviews over molecules")
+plt.imshow(mc)
+plt.savefig("test_result.png", dpi=300, format="png")
