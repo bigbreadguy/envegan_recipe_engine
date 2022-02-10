@@ -133,5 +133,6 @@ print(mc.shape)
 
 ss = sorted(range(len(mc[0])), key=lambda k: mc[0][k], reverse=True)
 
-for s in ss:
-    print(f"{list(fdb_meat.keys())[s]} : {mc[0][s]}")
+with open("test_result.txt", "w") as f:
+    for s in ss:
+        f.write("{} : {:.2e}\n".format(list(fdb_meat.keys())[s], mc[0][s]))
