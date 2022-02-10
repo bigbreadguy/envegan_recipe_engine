@@ -35,7 +35,7 @@ def get_response(url:str):
         "User-Agent": user_agents[random.randrange(len(user_agents))], 
     }
     
-    response = requests.get(url, headers=headers)
+    response = requests.get(url)
 
     return response
 
