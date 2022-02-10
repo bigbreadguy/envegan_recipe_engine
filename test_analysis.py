@@ -5,7 +5,7 @@ import os
 from tqdm import tqdm
 
 steak_reviews = os.path.join("review_data", "johnny_prime_steaks.json")
-with open(steak_reviews, "r") as f:
+with open(steak_reviews, "r", encoding="UTF-8-SIG") as f:
     review_data = json.load(f)
 
 keywords = set([])
@@ -63,7 +63,7 @@ fdb_meat = {}
 
 for k, v in tqdm(entity_ids.items()):
     dir = os.path.join("../", "FlavorDB_auto_download", "FlavorDB", f"{v}.json")
-    with open(dir, "rb") as f:
+    with open(dir, "rb", encoding="UTF-8-SIG") as f:
         fdb_json = json.load(f)
         
     fdb_dict = {}
