@@ -123,6 +123,7 @@ for i in range(len(mword2vec)):
     mtfidf[:,i] /= midf_dict[i]
 
 print(f"common words: {commonWords}")
+print(f"count: {len(commonWords)}")
 
 rcommon = [word2int[w] for w in commonWords]
 mcommon = [mword2int[w] for w in commonWords]
