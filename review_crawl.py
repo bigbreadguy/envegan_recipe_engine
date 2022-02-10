@@ -51,7 +51,7 @@ def crawl_review_article(url:str):
     text = ""
     for p in paragraphs:
         t = p.get_text()
-        text+=t
+        text+=t+" "
 
     ext = (".jpg", ".jpeg", ".png")
 
