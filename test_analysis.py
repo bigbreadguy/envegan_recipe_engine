@@ -63,7 +63,7 @@ fdb_meat = {}
 
 for k, v in tqdm(entity_ids.items()):
     dir = os.path.join("../", "FlavorDB_auto_download", "FlavorDB", f"{v}.json")
-    with open(dir, "rb", encoding="UTF-8-SIG") as f:
+    with open(dir, "rb") as f:
         fdb_json = json.load(f)
         
     fdb_dict = {}
