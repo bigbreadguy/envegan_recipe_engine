@@ -74,7 +74,7 @@ def crawl_review_article(url:str):
 
 def list_up_reviews(url:str):
     response = get_response(url)
-    soup = BeautifulSoup(response.content, from_encoding="utf-8")
+    soup = BeautifulSoup(response.content, "html.parser", from_encoding="utf-8")
 
     reviews = soup.find_all(class_="entry-content")[0]
     articles = reviews.find_all("li")
