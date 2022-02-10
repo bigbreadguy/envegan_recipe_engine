@@ -131,6 +131,14 @@ mcommon = [mword2int[w] for w in commonWords]
 rctfidf = tfidf[:,rcommon]
 mctfidf = mtfidf[:,mcommon]
 
+plt.title("reviews over words")
+plt.imshow(rctfidf)
+plt.savefig("rctfidf.png", dpi=300, format="png")
+
+plt.title("molecules over words")
+plt.imshow(mctfidf)
+plt.savefig("mctfidf.png", dpi=300, format="png")
+
 mc = np.matmul(rctfidf, mctfidf.T, dtype=np.float32)
 
 print(mc.shape)
