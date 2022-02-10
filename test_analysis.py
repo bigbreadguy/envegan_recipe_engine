@@ -29,9 +29,9 @@ for i, word in tqdm(enumerate(keywords)):
 
 review_docs = np.zeros((len(review_data), len(word2vec)), dtype=np.float32)
 
-for j in tqdm(review_data):
-    for spl in j["review"].split():
-        review_docs[word2int[spl]] += 1
+for i, rev in tqdm(enumerate(review_data)):
+    for spl in rev["review"].split():
+        review_docs[i, word2int[spl]] += 1
 
 tf_dict = review_docs[:]
 tf = np.sum(tf_dict, axis=1, dtype=np.float32)
