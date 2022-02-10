@@ -37,13 +37,13 @@ def get_response(url:str):
         "User-Agent": user_agents[random.randrange(len(user_agents))], 
     }
     
-    response = requests.get(url, headers=headers)
+    response = requests.get(url)
 
     return response
 
 def crawl_review_article(url:str):
     response = get_response(url)
-    soup = BeautifulSoup(response.content, from_encoding="utf-8")
+    soup = BeautifulSoup(response.content, "html.parser", from_encoding="utf-8")
 
     article = soup.find_all(class_="entry-content")[0]
     paragraphs = article.find_all("p")
