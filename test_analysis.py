@@ -131,8 +131,11 @@ mc = np.matmul(rctfidf, mctfidf.T, dtype=np.float32)
 
 print(mc.shape)
 
-ss = sorted(range(len(mc[0])), key=lambda k: mc[0][k], reverse=True)
+for i in range(N):
+    ss = sorted(range(len(mc[i])), key=lambda k: mc[i][k], reverse=True)
+    if np.max(mc[i]) > 0:
+        break
 
 with open("test_result.txt", "w") as f:
     for s in ss:
-        f.write("{} : {:.2e}\n".format(list(fdb_meat.keys())[s], mc[0][s]))
+        f.write("{} : {:.2e}\n".format(list(fdb_meat.keys())[s], mc[i][s]))
