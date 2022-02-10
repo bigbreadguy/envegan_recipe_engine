@@ -99,7 +99,7 @@ def parse_title(title:str):
     splt = title.split(":")
 
     place = splt[0]
-    score = splt[1].split(" ")[0][:1]
+    score = splt[1].split(" ")[1][:2]
     
     starcount = title.count("*")
     isfull = starcount==1
