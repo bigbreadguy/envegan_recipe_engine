@@ -136,7 +136,7 @@ for i in range(N):
     if np.max(mc[i]) > 0:
         break
 
-print(review_data[i]["title"])
+print(review_data[i]["place"])
 print(review_data[i]["url"])
 
 with open("test_result.txt", "w") as f:
