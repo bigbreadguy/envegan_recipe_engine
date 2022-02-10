@@ -136,6 +136,9 @@ for i in range(N):
     if np.max(mc[i]) > 0:
         break
 
+print(review_data[i]["title"])
+print(review_data[i]["url"])
+
 with open("test_result.txt", "w") as f:
     for s in ss:
         f.write("{} : {:.2e}\n".format(list(fdb_meat.keys())[s], mc[i][s]))
