@@ -10,20 +10,22 @@ from bs4 import BeautifulSoup
 
 def get_response(url:str):
     user_agents = [
-        "https://developers.whatismybrowser.com/useragents/parse/1240908webkit-based-browser-ios-iphone-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/1261120webkit-based-browser-ios-ipad-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/819115safari-ios-iphone-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/22389882safari-ios-iphone-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/89890032safari-ios-iphone-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/61890android-browser-android-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/88115148chrome-android-blink",
-        "https://developers.whatismybrowser.com/useragents/parse/1273795webkit-based-browser-macos-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/61120287safari-macos-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/82436602safari-macos-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/5801373safari-macos-webkit",
-        "https://developers.whatismybrowser.com/useragents/parse/133664832chrome-chrome-os-blink",
-        "https://developers.whatismybrowser.com/useragents/parse/696837edge-windows-edgehtml",
-        "https://developers.whatismybrowser.com/useragents/parse/135322344edge-windows-blink"]
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 12_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1 Mobile/15E148 Safari/604.1",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_7_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.2 Mobile/15E148 Safari/604.1",
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/604.1",
+        "Mozilla/5.0 (Linux; U; Android 2.2) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1",
+        "Mozilla/5.0 (Linux; Android 10; Android SDK built for x86) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
+        "Mozilla/5.0 (Linux; Android 7.1.2; AFTMM Build/NS6265; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/70.0.3538.110 Mobile Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/18.17763",
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.45 Safari/537.36",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Safari/605.1.15",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15",
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36"]
 
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9", 
@@ -35,7 +37,7 @@ def get_response(url:str):
         "User-Agent": user_agents[random.randrange(len(user_agents))], 
     }
     
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
 
     return response
 
@@ -128,5 +130,5 @@ if __name__ == "__main__":
         result.append({"place":place, "score": score, "max_flavor_score": isfull, "review": text, "images": images})
         time.sleep(0.5)
 
-    with open(os.path.join(save_dir, f"{args.title}.json", "w", encoding="UTF-8-SIG")) as fout:
+    with open(os.path.join(save_dir, f"{args.title}.json"), "w", encoding="UTF-8-SIG") as fout:
         json.dump(result, fout, ensure_ascii=False)
