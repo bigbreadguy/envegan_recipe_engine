@@ -88,38 +88,44 @@ for k, v in tqdm(entity_ids.items()):
             commonWords.add(word)
     print("Flavor Entity '{}' has been done".format(k))
 
-mword2vec = {}
 mword2int = {}
 
 n = len(molecule_word)
 for i, word in tqdm(enumerate(molecule_word)):
-    oh = np.zeros(n, dtype=np.float32)
-    oh[i] = 1
-    mword2vec[word] = oh
     mword2int[word] = i
 
-mdocs = np.zeros((len(molecule_word), len(mword2vec)), dtype=np.float32)
-N = len(fdb_meat.keys())
-for k in tqdm(fdb_meat.keys()):
-    for word in fdb_meat[k]:
-        mdocs[mword2int[word]] += 1
+mole2vec = {}
 
-mtf_dict = mdocs[:]
+n = len(molecule_word)
+for i, mole in tqdm(fdb_meat.keys()):
+    oh = np.zeros(n, dtype=np.float32)
+    for j, word in enumerate(molecule_word):
+        if word in fdb_meat[mole]:
+            oh[j] = 1
+    mole2vec[word] = oh
+
+mdocs = np.zeros((len(mole2vec), len(molecule_word)), dtype=np.float32)
+N = len(fdb_meat.keys())
+for i, k in tqdm(enumerate(fdb_meat.keys())):
+    for word in fdb_meat[k]:
+        mdocs[i, mword2int[word]] += 1
+
+mtf_dict = mdocs.copy()
 mtf = np.sum(mtf_dict, axis=1, dtype=np.float32)
 for i in range(len(mdocs)):
-    mtf_dict[i] /= mtf[i] + 0.01
+    mtf_dict[i, :] /= mtf[i] + 0.01
 
 N = len(mdocs)
-midf_dict = np.zeros(len(mword2vec), dtype=np.float32)
-idoc = mdocs[:]
+midf_dict = np.zeros(len(molecule_word), dtype=np.float32)
+idoc = mdocs.copy()
 idoc[idoc > 1] = 1
 df = np.sum(idoc, axis=0, dtype=np.float32)
-for i in tqdm(range(len(mword2vec))):    
+for i in tqdm(range(len(molecule_word))):    
     midf_dict[i] = np.log(N/(df[i]+0.01), dtype=np.float32)
 
 mtfidf = mtf_dict[:]
 
-for i in range(len(mword2vec)):
+for i in range(len(molecule_word)):
     mtfidf[:,i] /= midf_dict[i]
 
 print(f"common words: {commonWords}")
@@ -129,7 +135,7 @@ rcommon = [word2int[w] for w in commonWords]
 mcommon = [mword2int[w] for w in commonWords]
 
 rctfidf = tfidf[:,rcommon]
-mctfidf = mtfidf[:,mcommon]
+mctfidf = mtfidf[:,mcommon] #mctfidf가 잘못 구해짐
 
 plt.title("reviews over words")
 plt.imshow(rctfidf)
