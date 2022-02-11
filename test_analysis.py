@@ -102,7 +102,7 @@ for mole in tqdm(fdb_meat.keys()):
     for j, word in enumerate(molecule_word):
         if word in fdb_meat[mole]:
             oh[j] = 1
-    mole2vec[word] = oh
+    mole2vec[mole] = oh
 
 mdocs = np.zeros((len(mole2vec), len(molecule_word)), dtype=np.float32)
 N = len(fdb_meat.keys())
