@@ -167,7 +167,7 @@ for i in range(len(review_docs)):
 
 plt.title("reviews over molecules")
 plt.imshow(mc)
-plt.savefig(os.path.join(analysis_result, "test_result.png"), dpi=300, format="png")
+plt.savefig(os.path.join(analysis_result, "review-molecules.png"), dpi=300, format="png")
 
 flavor_db = os.path.join(os.getcwd(), "flavor_db")
 entities = os.listdir(flavor_db)
@@ -248,3 +248,7 @@ for i in range(len(review_docs)):
         f.write("vegan_entity, intensity\n")
         for s in ss:
             f.write("{}, {:.2e}\n".format(list(fdb_veg.keys())[s], rv[i][s]))
+
+plt.title("reviews over vegan entities")
+plt.imshow(mc)
+plt.savefig(os.path.join(analysis_result, "review-vegan_entities.png"), dpi=300, format="png")
