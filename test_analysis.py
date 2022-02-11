@@ -157,7 +157,7 @@ rm_result = os.path.join(analysis_result, "review-molecule")
 if not os.path.exists(rm_result):
     os.makedirs(rm_result)
 
-for i in range(len(mole2vec)):
+for i in range(len(review_docs)):
     ss = sorted(range(len(mc[i])), key=lambda k: mc[i][k], reverse=True)
     
     with open(os.path.join(rm_result, f"{review_data[i]['place']}.txt"), "w") as f:
