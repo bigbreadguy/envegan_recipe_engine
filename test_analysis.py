@@ -246,7 +246,7 @@ for i in range(len(review_docs)):
     
     with open(os.path.join(rv_result, f"{review_data[i]['place']}.txt"), "w") as f:
         f.write("vegan_entity, intensity\n")
-        for s in ss:
+        for s in ss1:
             f.write("{}, {:.2e}\n".format(list(fdb_veg.keys())[s], rv[i][s]))
 
 plt.title("reviews over vegan entities")
