@@ -130,3 +130,6 @@ dmypy.json
 
 # Ignore metadata
 .DS_Store
+
+# Project
+flavor_db/
