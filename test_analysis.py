@@ -97,7 +97,7 @@ for i, word in tqdm(enumerate(molecule_word)):
 mole2vec = {}
 
 n = len(molecule_word)
-for i, mole in tqdm(fdb_meat.keys()):
+for mole in tqdm(fdb_meat.keys()):
     oh = np.zeros(n, dtype=np.float32)
     for j, word in enumerate(molecule_word):
         if word in fdb_meat[mole]:
