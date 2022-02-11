@@ -209,6 +209,8 @@ for entity in vegan_entities:
     fdb_veg[name] = profiles
     veg_profiles.update(profiles)
 
+veg_profiles.update(commonWords)
+
 prof2int = {}
 for i, prof in enumerate(veg_profiles):
     prof2int[prof] = i
