@@ -241,7 +241,7 @@ rv_result = os.path.join(analysis_result, "review-vegan")
 if not os.path.exists(rv_result):
     os.makedirs(rv_result)
 
-for i in range(N):
+for i in range(len(review_docs)):
     ss1 = sorted(range(len(rv[i])), key=lambda k: rv[i][k], reverse=True)
     
     with open(os.path.join(rv_result, f"{review_data[i]['place']}.txt"), "w") as f:
