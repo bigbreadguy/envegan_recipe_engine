@@ -133,3 +133,5 @@ dmypy.json
 
 # Project
 flavor_db/
+review_data/
+analysis_result/
