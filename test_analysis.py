@@ -216,7 +216,7 @@ for i, prof in enumerate(veg_profiles):
 vdoc = np.zeros((len(fdb_veg), len(veg_profiles)), dtype=np.float32)
 veg2int = {}
 
-for i, name, profiles in enumerate(fdb_veg.items()):
+for i, (name, profiles) in enumerate(fdb_veg.items()):
     veg2int[name] = i
 
     for prof in profiles:
