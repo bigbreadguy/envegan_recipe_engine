@@ -15,7 +15,7 @@ def save_into_json(data, db_dir):
 
 if __name__ == "__main__":
     cwd_dir = os.getcwd()
-    db_dir = os.path.join(cwd_dir, "FlavorDB")
+    db_dir = os.path.join(cwd_dir, "flavor_db")
 
     if not os.path.exists(db_dir):
         os.makedirs(db_dir)
