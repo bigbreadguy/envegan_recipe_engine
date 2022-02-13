@@ -135,3 +135,4 @@ dmypy.json
 flavor_db/
 review_data/
 analysis_result/
+rep_images/
