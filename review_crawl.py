@@ -144,7 +144,7 @@ if __name__ == "__main__":
                                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--url", type=str, dest="url", help="target url")
     parser.add_argument("--title", type=str, dest="title", help="target title")
-    parser.add_argument("--download_images", default=False, type=bool, dest="crawl_reviews", help="crawl_reviews?")
+    parser.add_argument("--crawl_reviews", default=False, type=bool, dest="crawl_reviews", help="crawl_reviews?")
     parser.add_argument("--download_images", default=False, type=bool, dest="download_images", help="download images?")
     args = parser.parse_args()
 
