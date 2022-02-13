@@ -132,9 +132,12 @@ def download_images(review_dir:str, r_data_dict):
         
         images = r_data["images"]
         for image in images:
-            f = open(os.path.join(place_dir, f"{image.split('/')[-1]}"), "wb")
-            f.write(requests.get(image).content)
-            f.close
+            image_name = f"{image.split('/')[-1]}"
+            target_file_name = os.path.join(place_dir, image_name)
+            if not os.path.exists(target_file_name):
+                f = open(target_file_name, "wb")
+                f.write(requests.get(image).content)
+                f.close
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="crawl a review blog",
