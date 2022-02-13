@@ -109,6 +109,20 @@ def parse_title(title:str):
 
     return place, score, isfull
 
+def crawl_reviews():
+    reviews = list_up_reviews(args.url)
+
+    result = []
+    for review in tqdm.tqdm(reviews.values()):
+        place, score, isfull = parse_title(review["title"])
+        text, images = crawl_review_article(review["url"])
+        
+        result.append({"place":place, "score": score, "max_flavor_score": isfull, "review": text, "images": images})
+        time.sleep(0.5)
+    
+    with open(os.path.join(save_dir, f"{args.title}.json"), "w", encoding="UTF-8-SIG") as fout:
+        json.dump(result, fout, ensure_ascii=False)
+
 def download_images(review_dir:str, r_data_dict):
     for r_data in tqdm.tqdm(r_data_dict):
         name = r_data["place"]
@@ -127,25 +141,21 @@ if __name__ == "__main__":
                                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--url", type=str, dest="url", help="target url")
     parser.add_argument("--title", type=str, dest="title", help="target title")
-    parser.add_argument("--download_images", default=False, type=bool, dest="download_images", help="download images too?")
+    parser.add_argument("--download_images", default=False, type=bool, dest="crawl_reviews", help="crawl_reviews?")
+    parser.add_argument("--download_images", default=False, type=bool, dest="download_images", help="download images?")
     args = parser.parse_args()
 
-    reviews = list_up_reviews(args.url)
+    
 
     save_dir = os.path.join(os.getcwd(), "review_data")
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
-
-    result = []
-    for review in tqdm.tqdm(reviews.values()):
-        place, score, isfull = parse_title(review["title"])
-        text, images = crawl_review_article(review["url"])
-        
-        result.append({"place":place, "score": score, "max_flavor_score": isfull, "review": text, "images": images})
-        time.sleep(0.5)
     
-    if download_images:
-        download_images(review_dir=save_dir, r_data_dict=result)
+    if args.crawl_reviews:
+        crawl_reviews(args)
 
-    with open(os.path.join(save_dir, f"{args.title}.json"), "w", encoding="UTF-8-SIG") as fout:
-        json.dump(result, fout, ensure_ascii=False)
+    if args.download_images:
+        with open(os.path.join(save_dir, f"{args.title}.json"), "r", encoding="utf-8-sig") as f:
+            r_data_dict = json.load(f)
+
+        download_images(review_dir=save_dir, r_data_dict=r_data_dict)
