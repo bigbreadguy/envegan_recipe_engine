@@ -109,11 +109,25 @@ def parse_title(title:str):
 
     return place, score, isfull
 
+def download_images(review_dir:str, r_data_dict):
+    for r_data in tqdm.tqdm(r_data_dict):
+        name = r_data["place"]
+        place_dir = os.path.join(review_dir, name)
+        if not os.path.exists(place_dir):
+            os.makedirs(place_dir)
+        
+        images = r_data["images"]
+        for image in images:
+            f = open(os.path.join(place_dir, f"{image.split('/')[-1]}"), "wb")
+            f.write(requests.get(image).content)
+            f.close
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="crawl a review blog",
                                         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--url", type=str, dest="url", help="target url")
     parser.add_argument("--title", type=str, dest="title", help="target title")
+    parser.add_argument("--download_images", default=False, type=bool, dest="download_images", help="download images too?")
     args = parser.parse_args()
 
     reviews = list_up_reviews(args.url)
@@ -129,6 +143,9 @@ if __name__ == "__main__":
         
         result.append({"place":place, "score": score, "max_flavor_score": isfull, "review": text, "images": images})
         time.sleep(0.5)
+    
+    if download_images:
+        download_images(review_dir=save_dir, r_data_dict=result)
 
     with open(os.path.join(save_dir, f"{args.title}.json"), "w", encoding="UTF-8-SIG") as fout:
         json.dump(result, fout, ensure_ascii=False)
