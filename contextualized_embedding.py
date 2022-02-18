@@ -113,3 +113,5 @@ if __name__ == "__main__":
 
     cos_dist = 1 - cosine(target_word_embeddings[0], np.sum(target_word_embeddings, axis=0))
     print(f'Distance between context-free and context-averaged = {cos_dist}')
+
+    distances_df.to_csv(os.path.join("analysis_result", "bert_distance_analysis.csv"))
